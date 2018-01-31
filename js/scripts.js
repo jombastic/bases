@@ -1,15 +1,17 @@
-var converterCaller = function(stringArray, base) {
+var converterCaller = function(userInput, base) {
   if (base === '2') {
-    return binaryConverter(stringArray);
+    return binaryConverter(userInput);
   } else if (base === '3') {
-    return ternaryConverter(stringArray);
+    return ternaryConverter(userInput);
   } else {
-    return hexaConverter(stringArray);
+    return hexaConverter(userInput);
   }
 };
 
 //to convert every string in the array to number and reverse it
-var toNumAndReverse = function(stringArray) {
+var toNumAndReverse = function(userInput) {
+  var stringArray = userInput.split("");
+
   var numbers = stringArray.map(function(number) {
     if (/[ABCDEF]/i.test(number)) {
       return parseInt(number, 16);
@@ -29,8 +31,8 @@ var sumOfNumbers = function(numbers) {
   return sum;
 };
 
-var ternaryConverter = function(stringArray) {
-  var numbers = toNumAndReverse(stringArray);
+var ternaryConverter = function(userInput) {
+  var numbers = toNumAndReverse(userInput);
 
   //multiply each number with coresponding power by 3
   for (var i = 0; i < numbers.length; i++) {
@@ -41,8 +43,8 @@ var ternaryConverter = function(stringArray) {
   return convertedNumber;
 };
 
-var hexaConverter = function(stringArray) {
-  var numbers = toNumAndReverse(stringArray);
+var hexaConverter = function(userInput) {
+  var numbers = toNumAndReverse(userInput);
 
   //multiply each number with coresponding power by 16
   for (var i = 0; i < numbers.length; i++) {
@@ -53,8 +55,8 @@ var hexaConverter = function(stringArray) {
   return convertedNumber;
 };
 
-var binaryConverter = function(stringArray) {
-  var numbers = toNumAndReverse(stringArray);
+var binaryConverter = function(userInput) {
+  var numbers = toNumAndReverse(userInput);
 
   //multiply each number by 2 with coresponding powers
   for (var i = 0; i < numbers.length ; i++) {
@@ -69,11 +71,16 @@ $(function() {
   $("form").submit(function(event) {
     event.preventDefault();
 
-    var number = $("#numbers").val().split("");
+    var number = $("#numbers").val();
     var base = $("input:radio[name=base]:checked").val();
-    var result = converterCaller(number, base);
 
+    var result = converterCaller(number, base);
     $("#result").show();
-    $(".conversion").text(result);
+
+    if ((base === '2') && (/[2-9]+|(\D)+/gi.test(number))) {
+      $(".conversion").text("invalid input");
+    } else {
+      $(".conversion").text(result);
+    }
   });
 });
