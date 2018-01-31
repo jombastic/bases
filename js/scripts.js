@@ -5,6 +5,14 @@ var convertAndReverse = function(stringArray) {    //to convert every string in 
   return numbers.reverse();
 };
 
+var sumOfNumbers = function(numbers) {
+  var sum = numbers.reduce(function(first, number) {
+    return first + number;
+  });
+
+  return sum;
+};
+
 /*var ternaryConverter = function(stringArray) {
   for (var i = 0; i < numbers.length; i++) {
     numbers[i] *= Math.pow(3, i);
@@ -18,9 +26,7 @@ var binaryConverter = function(stringArray) {
     numbers[i] *= Math.pow(2, i);
   }
 
-  var convertedNumber = numbers.reduce(function(first, number) {
-    return first + number;
-  });
+  var convertedNumber = sumOfNumbers(numbers);
 
   return convertedNumber;
 };
