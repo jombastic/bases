@@ -77,7 +77,9 @@ $(function() {
     var result = converterCaller(number, base);
     $("#result").show();
 
-    if (((base === '2') && (/[2-9]+|(\D)+/gi.test(number))) || ((base === '3') && (/[3-9]+|(\D)+/gi.test(number)))) {
+    if (((base === '2') && (/[2-9]+|(\D)+/gi.test(number)))
+    || ((base === '3') && (/[3-9]+|(\D)+/gi.test(number)))
+    || ((base === '16') && !(/^(\d|[A-F])+$/gi.test(number)))) {
       $(".conversion").text("invalid input");
     } else {
       $(".conversion").text(result);
