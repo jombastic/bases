@@ -1,3 +1,13 @@
+var converterCaller = function(stringArray, base) {
+  if (base === '2') {
+    return binaryConverter(stringArray);
+  } else if (base === '3') {
+    return ternaryConverter(stringArray);
+  } else {
+    return hexaConverter(stringArray);
+  }
+};
+
 //to convert every string in the array to number and reverse it
 var toNumAndReverse = function(stringArray) {
   var numbers = stringArray.map(function(number) {
@@ -19,24 +29,24 @@ var sumOfNumbers = function(numbers) {
   return sum;
 };
 
-var hexaConverter = function(stringArray) {
-  var numbers = toNumAndReverse(stringArray);
-
-  //multiply each number with coresponding power by 16
-  for (var i = 0; i < numbers.length; i++) {
-    numbers[i] *= Math.pow(16, i);
-  }
-
-  var convertedNumber = sumOfNumbers(numbers);
-  return convertedNumber;
-};
-
 var ternaryConverter = function(stringArray) {
   var numbers = toNumAndReverse(stringArray);
 
   //multiply each number with coresponding power by 3
   for (var i = 0; i < numbers.length; i++) {
     numbers[i] *= Math.pow(3, i);
+  }
+
+  var convertedNumber = sumOfNumbers(numbers);
+  return convertedNumber;
+};
+
+var hexaConverter = function(stringArray) {
+  var numbers = toNumAndReverse(stringArray);
+
+  //multiply each number with coresponding power by 16
+  for (var i = 0; i < numbers.length; i++) {
+    numbers[i] *= Math.pow(16, i);
   }
 
   var convertedNumber = sumOfNumbers(numbers);
@@ -60,7 +70,8 @@ $(function() {
     event.preventDefault();
 
     var number = $("#numbers").val().split("");
-    var result = hexaConverter(number);
+    var base = $("input:radio[name=base]:checked").val();
+    var result = converterCaller(number, base);
 
     $("#result").show();
     $(".conversion").text(result);
