@@ -9,18 +9,41 @@
     <div class="container">
       <h1>Bases converter</h1>
 
-      <form>
-        <div class="form-group">
-          <label for="numbers">Enter a hexadecimal number to convert to decimal</label>
-          <input type="text" class="form-control" id="numbers" />
+      <div class="row">
+        <form>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="numbers">Enter a hexadecimal number to convert to decimal</label>
+              <input type="text" class="form-control" id="numbers" />
+            </div>
+            <button class="btn" type="submit">Convert</button>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="base" value="2" checked="true" /> binary
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="base" value="3" /> ternary
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="base" value="16" /> hexadecimal
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div id="result" class="col-md-3">
+          <p>
+            Decimal: <span class="conversion"></span>
+          </p>
         </div>
-        <button class="btn" type="submit">Convert</button>
-      </form>
-
-      <div id="result">
-        <p>
-
-        </p>
       </div>
     </div>
 

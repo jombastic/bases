@@ -7,7 +7,6 @@ var toNumAndReverse = function(stringArray) {
       return parseInt(number);
     }
   });
-  console.log(numbers);
   return numbers.reverse();
 };
 
@@ -62,6 +61,8 @@ $(function() {
 
     var number = $("#numbers").val().split("");
     var result = hexaConverter(number);
-    $("#result").text(result);
+
+    $("#result").show();
+    $(".conversion").text(result);
   });
 });
