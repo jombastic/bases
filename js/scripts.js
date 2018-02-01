@@ -1,69 +1,29 @@
-var converterCaller = function(userInput, base) {
-  if (base === '2') {
-    return binaryConverter(userInput);
-  } else if (base === '3') {
-    return ternaryConverter(userInput);
-  } else {
-    return hexaConverter(userInput);
-  }
-};
-
 //to convert every string in the array to number and reverse it
 var toNumAndReverse = function(userInput) {
   var stringArray = userInput.split("");
 
-  var numbers = stringArray.map(function(number) {
-    if (/[ABCDEF]/i.test(number)) {
-      return parseInt(number, 16);
+  var digits = stringArray.map(function(digit) {
+    if (/[ABCDEF]/i.test(digit)) {
+      return parseInt(digit, 16);
     } else {
-      return parseInt(number);
+      return parseInt(digit);
     }
   });
-  return numbers.reverse();
+  return digits.reverse();
 };
 
-//to sum the numbers
-var sumOfNumbers = function(numbers) {
-  var sum = numbers.reduce(function(first, number) {
-    return first + number;
+var converter = function(userInput, base) {
+  var digits = toNumAndReverse(userInput);
+
+  //multiply each digit with coresponding power
+  for (var i = 0; i < digits.length; i++) {
+    digits[i] *= Math.pow(base, i);
+  }
+  //sum the array of digits
+  var convertedNumber = digits.reduce(function(first, digit) {
+    return first + digit;
   });
 
-  return sum;
-};
-
-var ternaryConverter = function(userInput) {
-  var numbers = toNumAndReverse(userInput);
-
-  //multiply each number with coresponding power by 3
-  for (var i = 0; i < numbers.length; i++) {
-    numbers[i] *= Math.pow(3, i);
-  }
-
-  var convertedNumber = sumOfNumbers(numbers);
-  return convertedNumber;
-};
-
-var hexaConverter = function(userInput) {
-  var numbers = toNumAndReverse(userInput);
-
-  //multiply each number with coresponding power by 16
-  for (var i = 0; i < numbers.length; i++) {
-    numbers[i] *= Math.pow(16, i);
-  }
-
-  var convertedNumber = sumOfNumbers(numbers);
-  return convertedNumber;
-};
-
-var binaryConverter = function(userInput) {
-  var numbers = toNumAndReverse(userInput);
-
-  //multiply each number by 2 with coresponding powers
-  for (var i = 0; i < numbers.length ; i++) {
-    numbers[i] *= Math.pow(2, i);
-  }
-
-  var convertedNumber = sumOfNumbers(numbers);
   return convertedNumber;
 };
 
@@ -71,10 +31,10 @@ $(function() {
   $("form").submit(function(event) {
     event.preventDefault();
 
-    var number = $("#numbers").val();
+    var number = $("#number").val();
     var base = $("input:radio[name=base]:checked").val();
 
-    var result = converterCaller(number, base);
+    var result = converter(number, base);
     $("#result").show();
 
     if (((base === '2') && (/[2-9]+|(\D)+/gi.test(number)))
